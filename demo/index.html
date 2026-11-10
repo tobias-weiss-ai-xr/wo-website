@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>World-Office Testumgebung — Editor öffnen</title>
+<title>World-Office Testumgebung — Editor-Vergleich</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="/assets/favicon.ico">
 <style>
@@ -20,21 +20,32 @@ header .brand{display:flex;align-items:center;gap:12px;font-weight:600}
 header img{height:30px}
 .badge{display:inline-block;padding:3px 10px;border-radius:99px;font-size:.75rem;border:1px solid var(--line);color:var(--cyan);margin-left:6px}
 .badge.gold{color:var(--gold)}
-main{flex:1;width:100%;max-width:1080px;margin:0 auto;padding:36px 24px}
+main{flex:1;width:100%;max-width:1720px;margin:0 auto;padding:30px 24px}
 h1{font-size:1.45rem;margin-bottom:6px}
 h2{font-size:1.05rem;margin:26px 0 10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
 .sub{color:var(--muted);margin-bottom:22px;font-size:.95rem}
 .pick{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-bottom:10px}
-.file{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;transition:transform .15s,border-color .15s;display:block;flex:0 1 195px}
-a.file:hover{transform:translateY(-3px);border-color:var(--cyan)}
+.file{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;transition:transform .15s,border-color .15s;display:block;flex:0 1 195px;cursor:pointer}
+.file:hover{transform:translateY(-3px);border-color:var(--cyan)}
 .file .ico{font-size:1.6rem;display:block;margin-bottom:10px}
 .file h3{font-size:1rem;margin-bottom:6px;color:var(--text)}
 .file p{color:var(--muted);font-size:.86rem}
 .new{color:var(--gold);font-size:.7rem;border:1px solid var(--gold);border-radius:99px;padding:1px 8px;vertical-align:middle;margin-left:6px}
-#editor-holder{display:none;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;margin-bottom:14px}
-#editor-holder.full{height:78vh}
-#placeholder{border:1px dashed var(--line);border-radius:12px;padding:34px;text-align:center;color:var(--muted);font-size:.95rem}
-.back{display:inline-block;margin:6px 0 18px;color:var(--muted);font-size:.9rem}
+#compare{display:none;margin-bottom:14px}
+#compare.on{display:block}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:1150px){.row{grid-template-columns:1fr}}
+.panel{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--panel2);min-width:0}
+.panel h3{font-size:.8rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);padding:8px 14px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+.panel h3 .tag{font-size:.68rem;color:var(--cyan);border:1px solid var(--line);border-radius:99px;padding:1px 8px}
+.panel h3 .tag.gold{color:var(--gold);border-color:var(--gold)}
+.panel .body{height:76vh;background:#fff;position:relative}
+.panel .body iframe,.panel .body > div{width:100%;height:100%;border:0;display:block}
+.panel .load{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--muted);background:#f6f6fa;font-size:.9rem}
+.back{display:inline-block;margin:6px 0 14px;color:var(--muted);font-size:.9rem}
+.solo{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.solo a{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 16px;font-size:.88rem;color:var(--text)}
+.solo a:hover{border-color:var(--cyan)}
 footer{padding:18px 24px;border-top:1px solid rgba(255,255,255,.05);color:var(--muted);font-size:.82rem;text-align:center}
 footer a{color:var(--muted)}
 </style>
@@ -54,46 +65,44 @@ footer a{color:var(--muted)}
 </header>
 
 <main>
-  <!-- ============ WORLD-OFFICE EIGENER STACK ============ -->
-  <h1>World-Office Editor <span class="new">Rust-Stack</span></h1>
-  <p class="sub">Unser eigener Document Server (Rust) mit der eigenen Editor-UI. Jeder Editor startet mit einem eingebauten Demo-Dokument — einfach tippen loslegen. Änderungen bleiben sitzungslokal, es wird nichts gespeichert und nichts verlässt dieses System.</p>
-  <div class="pick">
-    <a class="file" href="https://editor.cloud.graphwiz.ai/word/" target="_blank" rel="noopener">
-      <span class="ico">📝</span><h3>Text</h3><p>World Office — Document Editor (docx)</p>
-    </a>
-    <a class="file" href="https://editor.cloud.graphwiz.ai/sheet/" target="_blank" rel="noopener">
-      <span class="ico">📊</span><h3>Tabellen</h3><p>Spreadsheet Editor (xlsx)</p>
-    </a>
-    <a class="file" href="https://editor.cloud.graphwiz.ai/slide/" target="_blank" rel="noopener">
-      <span class="ico">📽️</span><h3>Präsentation</h3><p>Presentation Editor (pptx)</p>
-    </a>
-    <a class="file" href="https://editor.cloud.graphwiz.ai/pdf/" target="_blank" rel="noopener">
-      <span class="ico">📕</span><h3>PDF</h3><p>PDF Editor</p>
-    </a>
-    <a class="file" href="https://editor.cloud.graphwiz.ai/diagram/" target="_blank" rel="noopener">
-      <span class="ico">🔀</span><h3>Diagramme</h3><p>Diagram Editor (Visio-kompatibel)</p>
-    </a>
-  </div>
+  <h1>Editor-Vergleich <span class="new">Side-by-Side</span></h1>
+  <p class="sub">Dasselbe Dokument — einmal in der OnlyOffice-Referenz-Engine, daneben im eigenen World-Office-Editor (Rust-Stack). Dokument wählen, beide Editoren laden dasselbe .docx. Änderungen bleiben sitzungslokal, es wird nichts gespeichert.</p>
 
-  <!-- ============ UPSTREAM REFERENZ ============ -->
-  <h2>Upstream-Referenz (OnlyOffice-Engine)</h2>
-  <p class="sub">Zum Vergleich: die OnlyOffice-Engine, von der World-Office abgeleitet ist. Dokumente werden stündlich zurückgesetzt.</p>
-  <div class="pick">
-    <div class="file" onclick="openDoc('Bericht.docx','word')" role="button" tabindex="0">
-      <span class="ico">📝</span><h3>Bericht.docx</h3>
-      <p>Einführungsdokument — lesen, bearbeiten, live miterleben.</p>
+  <div class="pick" id="pick">
+    <div class="file" onclick="openCompare('Bericht.docx')" role="button" tabindex="0">
+      <span class="ico">📝</span><h3>Bericht.docx</h3><p>Einführungsdokument — in beiden Editoren gleichzeitig öffnen.</p>
     </div>
-    <div class="file" onclick="openDoc('Notizen.docx','word')" role="button" tabindex="0">
-      <span class="ico">🗒️</span><h3>Notizen.docx</h3>
-      <p>Freies Notizblatt zum Testen von Formatierung, Listen und Tabellen.</p>
+    <div class="file" onclick="openCompare('Notizen.docx')" role="button" tabindex="0">
+      <span class="ico">🗒️</span><h3>Notizen.docx</h3><p>Freies Notizblatt — Formatierung, Listen und Tabellen testen.</p>
     </div>
   </div>
 
-  <div id="editor-holder">
+  <div id="compare">
     <a class="back" href="#" onclick="location.reload();return false">← zurück zur Auswahl</a>
-    <div id="editor"></div>
+    <div class="row">
+      <div class="panel">
+        <h3>OnlyOffice <span class="tag">Referenz-Engine</span></h3>
+        <div class="body"><div id="oo-editor"></div></div>
+      </div>
+      <div class="panel">
+        <h3>World-Office <span class="tag gold">eigener Rust-Stack</span></h3>
+        <div class="body">
+          <div class="load" id="wo-load">World-Office-Editor lädt …</div>
+          <iframe id="wo-frame" style="display:none" title="World-Office Editor" allow="clipboard-write"></iframe>
+        </div>
+      </div>
+    </div>
   </div>
-  <div id="placeholder">Wählen Sie oben ein Dokument, um den Referenz-Editor zu starten.</div>
+
+  <h2>World-Office-Editoren einzeln öffnen</h2>
+  <p class="sub">Für den Full-Screen-Test eines einzelnen Editors (mit eingebautem Demo-Dokument):</p>
+  <div class="solo">
+    <a href="https://editor.cloud.graphwiz.ai/word/" target="_blank" rel="noopener">📝 Text</a>
+    <a href="https://editor.cloud.graphwiz.ai/sheet/" target="_blank" rel="noopener">📊 Tabellen</a>
+    <a href="https://editor.cloud.graphwiz.ai/slide/" target="_blank" rel="noopener">📽️ Präsentation</a>
+    <a href="https://editor.cloud.graphwiz.ai/pdf/" target="_blank" rel="noopener">📕 PDF</a>
+    <a href="https://editor.cloud.graphwiz.ai/diagram/" target="_blank" rel="noopener">🔀 Diagramme</a>
+  </div>
 </main>
 
 <footer>
@@ -107,23 +116,26 @@ footer a{color:var(--muted)}
 
 <script src="https://world-office-demo.graphwiz.ai/web-apps/apps/api/documents/api.js"></script>
 <script>
-// Doc key rotates hourly — in sync with the hourly container purge.
+// Doc key rotates hourly — in sync with the hourly OO container purge.
 function hourKey(name){
   return name + '-' + new Date().toISOString().slice(0,13);
 }
-function openDoc(name, type){
-  var holder = document.getElementById('editor-holder');
-  document.getElementById('placeholder').style.display = 'none';
-  holder.style.display = 'block';
-  holder.classList.add('full');
-  new DocsAPI.DocEditor('editor', {
+// Same document into BOTH editors. The .docx is fetched same-origin, pushed
+// to the World-Office docserver via the /wo-demo/api/ proxy (nginx), then the
+// WO editor boots on it through its file_id URL parameter.
+async function openCompare(name){
+  document.getElementById('pick').style.display = 'none';
+  document.getElementById('compare').classList.add('on');
+
+  // --- OnlyOffice reference (left) --------------------------------------
+  new DocsAPI.DocEditor('oo-editor', {
     document: {
       fileType: 'docx',
       key: hourKey(name),
       title: name,
       url: 'https://world-office.graphwiz.ai/demo/files/' + name
     },
-    documentType: type,
+    documentType: 'word',
     type: 'desktop',
     editorConfig: {
       callbackUrl: 'https://world-office.graphwiz.ai/wo-demo/callback',
@@ -136,6 +148,29 @@ function openDoc(name, type){
       }
     }
   });
+
+  // --- World-Office own stack (right) ------------------------------------
+  var frame = document.getElementById('wo-frame');
+  var load  = document.getElementById('wo-load');
+  try {
+    var res = await fetch('/demo/files/' + name);
+    if (!res.ok) throw new Error('fetch ' + name + ': ' + res.status);
+    var buf = await res.arrayBuffer();
+    var up = await fetch('/wo-demo/api/upload?filename=' + encodeURIComponent(name), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' },
+      body: buf
+    });
+    if (!up.ok) throw new Error('upload: ' + up.status);
+    frame.src = 'https://editor.cloud.graphwiz.ai/word/?file_id=' + encodeURIComponent(name) +
+                '&file_name=' + encodeURIComponent(name) + '&UI_LLCC=de-DE';
+    frame.onload = function(){
+      frame.style.display = 'block';
+      load.style.display = 'none';
+    };
+  } catch (e) {
+    load.textContent = 'World-Office-Editor konnte nicht geladen werden (' + e.message + ') — im eigenen Tab öffnen: ' + name;
+  }
 }
 </script>
 </body>
