@@ -116,9 +116,11 @@ footer a{color:var(--muted)}
 
 <script src="https://world-office-demo.graphwiz.ai/web-apps/apps/api/documents/api.js"></script>
 <script>
-// Doc key rotates hourly — in sync with the hourly OO container purge.
-function hourKey(name){
-  return name + '-' + new Date().toISOString().slice(0,13);
+// Doc key is unique per open — every click gets a pristine copy of the
+// document (no cross-session "Version wurde geändert" conflicts). The OO
+// container purge cleans the storage periodically.
+function openKey(name){
+  return name + '-' + Date.now().toString(36);
 }
 // Same document into BOTH editors. The .docx is fetched same-origin, pushed
 // to the World-Office docserver via the /wo-demo/api/ proxy (nginx), then the
@@ -131,7 +133,7 @@ async function openCompare(name){
   new DocsAPI.DocEditor('oo-editor', {
     document: {
       fileType: 'docx',
-      key: hourKey(name),
+      key: openKey(name),
       title: name,
       url: 'https://world-office.graphwiz.ai/demo/files/' + name
     },
