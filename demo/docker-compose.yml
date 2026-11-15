@@ -10,7 +10,7 @@
 #   - example app enabled so visitors land on clickable sample docs
 services:
   demo:
-    image: onlyoffice/documentserver:latest
+    image: onlyoffice/documentserver:9.4.0
     restart: unless-stopped
     environment:
       - JWT_ENABLED=false
